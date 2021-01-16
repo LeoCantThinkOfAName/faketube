@@ -39,4 +39,5 @@ export const GlobalStyles = createGlobalStyle`
   main,
   footer {
     flex-shrink: 0;
-  }`;
+  }
+  `;

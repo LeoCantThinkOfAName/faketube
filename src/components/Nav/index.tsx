@@ -23,6 +23,7 @@ const StyledLink = styled(Link)`
   padding: 1rem;
   height: 3rem;
   text-decoration: none;
+  transition: all 0.3s ease-in-out;
 
   &.active {
     background-color: ${({ theme }) => theme.body};
