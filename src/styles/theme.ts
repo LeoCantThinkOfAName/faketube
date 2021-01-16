@@ -1,5 +1,6 @@
 export interface GlobalTheme {
   body: string;
+  sub: string;
   text: {
     main: string;
     contrast: string;
@@ -17,7 +18,8 @@ export interface Typography {
 }
 
 export const lightTheme: GlobalTheme = {
-  body: "#eee",
+  body: "#fafafa",
+  sub: "#fff",
   text: {
     main: "#555",
     contrast: "#fff"
@@ -34,9 +36,10 @@ export const lightTheme: GlobalTheme = {
 
 export const darkTheme: GlobalTheme = {
   body: "#555",
+  sub: "#777",
   text: {
     main: "#fff",
-    contrast: "#555"
+    contrast: "#fff"
   },
   main: "#ff3352",
   typography: {
