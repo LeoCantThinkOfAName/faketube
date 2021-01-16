@@ -28,11 +28,13 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    position: relative;
   }
   
   main {
     flex-grow: 1;
     display: flex;
+    position: relative;
   }
 
   header,

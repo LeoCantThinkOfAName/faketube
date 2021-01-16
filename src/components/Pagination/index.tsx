@@ -7,10 +7,10 @@ interface PaginationProps {}
 
 const StyledDiv = styled.div`
   width: 100%;
-  margin: 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem 0;
 `;
 
 const StyledOl = styled.ol`

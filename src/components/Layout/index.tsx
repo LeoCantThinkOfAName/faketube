@@ -8,7 +8,12 @@ interface LayoutProps {}
 
 const StyledDiv = styled.div`
   width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex: 1;
   padding: 1rem;
+  overflow: auto;
+  flex-direction: column;
 `;
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

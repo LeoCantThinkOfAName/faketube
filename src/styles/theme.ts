@@ -7,6 +7,7 @@ export interface GlobalTheme {
   };
   main: string;
   typography: Typography;
+  breakpoints: Breakpoints;
 }
 
 export interface Typography {
@@ -17,6 +18,30 @@ export interface Typography {
   xl: string;
 }
 
+export interface Breakpoints {
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+}
+
+const breakpoints: Breakpoints = {
+  xs: "(min-width: 320px)",
+  sm: "(min-width: 480px)",
+  md: "(min-width: 768px)",
+  lg: "(min-width: 1024px)",
+  xl: "(min-width: 1280px)"
+}
+
+const typography: Typography = {
+  xs: "0.75rem",
+  sm: "0.875",
+  md: "1rem",
+  lg: "1.25rem",
+  xl: "1.5rem"
+}
+
 export const lightTheme: GlobalTheme = {
   body: "#fafafa",
   sub: "#fff",
@@ -25,28 +50,18 @@ export const lightTheme: GlobalTheme = {
     contrast: "#fff"
   },
   main: "#ff3352",
-  typography: {
-    xs: "0.75rem",
-    sm: "0.875",
-    md: "1rem",
-    lg: "1.25rem",
-    xl: "1.5rem"
-  }
+  typography,
+  breakpoints
 }
 
 export const darkTheme: GlobalTheme = {
-  body: "#555",
-  sub: "#777",
+  body: "#222",
+  sub: "#303030",
   text: {
     main: "#fff",
     contrast: "#fff"
   },
   main: "#ff3352",
-  typography: {
-    xs: "0.75rem",
-    sm: "0.875",
-    md: "1rem",
-    lg: "1.25rem",
-    xl: "1.5rem"
-  }
+  typography,
+  breakpoints
 }

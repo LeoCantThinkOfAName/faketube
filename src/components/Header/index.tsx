@@ -12,6 +12,9 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   h1 {
     color: ${({ theme }) => theme.text.contrast};
