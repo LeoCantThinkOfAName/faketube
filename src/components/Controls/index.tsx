@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
   FiChevronsLeft,
   FiChevronsRight,
   FiPause,
   FiPlay,
-  FiVolumeX,
   FiVolume2,
+  FiVolumeX,
 } from "react-icons/fi";
-import styled from "styled-components";
 import { ReactPlayerProps } from "react-player";
+import styled from "styled-components";
+
+import { YoutubeVideo } from "../../types/youtube";
+import { getLocalStorage } from "../../utils/getLocalStorage";
+import { setLocalStorage } from "../../utils/setLocalStorage";
 import { ProgressBar } from "../ProgressBar";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 interface ControlsProps {
   player: React.Component<ReactPlayerProps, any>;
@@ -26,6 +30,8 @@ interface ControlsProps {
     loaded: number;
     loadedSeconds: number;
   };
+  data: YoutubeVideo | undefined;
+  getDuration: () => number;
 }
 
 const StyledDiv = styled.div`
@@ -69,7 +75,18 @@ export const Controls: React.FC<ControlsProps> = ({
   muted,
   setMuted,
   progress,
+  data,
+  getDuration,
 }) => {
+  const storedFavs = useMemo(() => getLocalStorage("favs"), []);
+  const [favs, setFavs] = useState(storedFavs);
+
+  useEffect(() => {
+    if (favs) {
+      setLocalStorage("favs", favs);
+    }
+  }, [favs]);
+
   useEffect(() => {
     if (player) {
       console.log("player ready");
@@ -105,31 +122,59 @@ export const Controls: React.FC<ControlsProps> = ({
 
   return (
     <StyledDiv>
-      <StyledButton onClick={() => seeking(false)} title="Fast Backward">
-        <FiChevronsLeft />
-      </StyledButton>
-      <StyledButton
-        title={playing ? "Pause" : "Play"}
-        onClick={() => setPlaying(!playing)}
-      >
-        {playing ? <FiPause /> : <FiPlay />}
-      </StyledButton>
-      <StyledButton onClick={() => seeking(true)} title="Fast Forward">
-        <FiChevronsRight />
-      </StyledButton>
-      <ProgressBar percentage={progress.played * 100} />
-      <StyledTime>{displayTime(progress.playedSeconds)}</StyledTime>
-      <StyledButton
-        onClick={() => setMuted(!muted)}
-        title={muted ? "Unmute" : "Mute"}
-      >
-        {muted ? <FiVolumeX /> : <FiVolume2 />}
-      </StyledButton>
-      <StyledButton
-      // onClick={() => setMuted(!muted)}
-      >
-        <FaRegHeart />
-      </StyledButton>
+      {data && (
+        <>
+          <StyledButton onClick={() => seeking(false)} title="Fast Backward">
+            <FiChevronsLeft />
+          </StyledButton>
+          <StyledButton
+            title={playing ? "Pause" : "Play"}
+            onClick={() => setPlaying(!playing)}
+          >
+            {playing ? <FiPause /> : <FiPlay />}
+          </StyledButton>
+          <StyledButton onClick={() => seeking(true)} title="Fast Forward">
+            <FiChevronsRight />
+          </StyledButton>
+          <ProgressBar
+            percentage={progress.played * 100}
+            seekTo={seekTo}
+            duration={getDuration()}
+          />
+          <StyledTime>{displayTime(progress.playedSeconds)}</StyledTime>
+          <StyledButton
+            onClick={() => setMuted(!muted)}
+            title={muted ? "Unmute" : "Mute"}
+          >
+            {muted ? <FiVolumeX /> : <FiVolume2 />}
+          </StyledButton>
+          <StyledButton
+            onClick={() => {
+              if (favs) {
+                if (
+                  favs.findIndex((fav: YoutubeVideo) => fav.id === data.id) !==
+                  -1
+                ) {
+                  setFavs(
+                    favs.filter((fav: YoutubeVideo) => fav.id !== data.id),
+                  );
+                } else {
+                  setFavs([...favs, data]);
+                }
+              } else {
+                setFavs([data]);
+              }
+            }}
+          >
+            {favs &&
+            favs.findIndex((fav: YoutubeVideo) => fav.id === data.id) !== -1 ? (
+              <FaHeart />
+            ) : (
+              <FaRegHeart />
+            )}
+          </StyledButton>
+        </>
+      )}
     </StyledDiv>
   );
 };

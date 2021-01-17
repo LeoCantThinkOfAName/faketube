@@ -28,9 +28,8 @@ export const IndexPage: React.FC<IndexPageProps> = ({}) => {
 
   return (
     <>
-      <SearchInput />
       <VideoList list={sessionData?.items} loading={isLoading} />
-      {!isLoading && sessionData && <Pagination />}
+      {!isLoading && sessionData && <Pagination items={sessionData?.items} />}
     </>
   );
 };

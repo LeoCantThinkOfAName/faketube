@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { YoutubeVideo } from "../../types/youtube";
+import { YoutubeSearchedVideo, YoutubeVideo } from "../../types/youtube";
 import { Link } from "react-router-dom";
 import { parseDuration } from "../../utils/parseDuration";
 
 interface VideoListItemProps {
-  video: YoutubeVideo;
+  video?: YoutubeVideo;
+  searchedVideo?: YoutubeSearchedVideo;
 }
 
 const StyledLi = styled.li`
@@ -58,21 +59,46 @@ const StyledLi = styled.li`
   }
 `;
 
-export const VideoListItem: React.FC<VideoListItemProps> = ({ video }) => {
-  return (
-    <StyledLi>
-      <Link to={`/watch/${video.id}`}>
-        <figure>
-          <div>
-            <img
-              src={video.snippet.thumbnails.high.url}
-              alt={video.snippet.title}
-            />
-            <span>{parseDuration(video.contentDetails.duration)}</span>
-          </div>
-          <figcaption>{video.snippet.title}</figcaption>
-        </figure>
-      </Link>
-    </StyledLi>
-  );
+export const VideoListItem: React.FC<VideoListItemProps> = ({
+  video = null,
+  searchedVideo = null,
+}) => {
+  if (video) {
+    return (
+      <StyledLi>
+        <Link to={`/watch/${video.id}`}>
+          <figure>
+            <div>
+              <img
+                src={video.snippet.thumbnails.high.url}
+                alt={video.snippet.title}
+              />
+              {video && (
+                <span>{parseDuration(video.contentDetails.duration)}</span>
+              )}
+            </div>
+            <figcaption>{video.snippet.title}</figcaption>
+          </figure>
+        </Link>
+      </StyledLi>
+    );
+  }
+  if (searchedVideo) {
+    return (
+      <StyledLi>
+        <Link to={`/watch/${searchedVideo.id.videoId}`}>
+          <figure>
+            <div>
+              <img
+                src={searchedVideo.snippet.thumbnails.high.url}
+                alt={searchedVideo.snippet.title}
+              />
+            </div>
+            <figcaption>{searchedVideo.snippet.title}</figcaption>
+          </figure>
+        </Link>
+      </StyledLi>
+    );
+  }
+  return null;
 };

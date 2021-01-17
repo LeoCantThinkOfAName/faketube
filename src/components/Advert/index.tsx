@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   background-color: rgba(50, 50, 50, 0.8);
   width: 100%;
   padding: 1rem;
-  height: 20%;
+  min-height: 20%;
   color: #fff;
 `;
 

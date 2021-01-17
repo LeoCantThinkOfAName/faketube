@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface ProgressBarProps {
   percentage: number;
+  duration: number;
+  seekTo: (amount: number, type?: "seconds" | "fraction" | undefined) => void;
 }
 
 const StyledDiv = styled.div`
@@ -34,9 +36,39 @@ const StyledSeeker = styled.div`
   height: 100%;
 `;
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({
+  percentage,
+  duration,
+  seekTo,
+}) => {
+  const progress = useRef<HTMLDivElement | null>(null);
+
+  const hello = (e: MouseEvent) => {
+    e.stopPropagation();
+    if (e.target) {
+      // @ts-ignore
+      const offset = e.target.offsetParent.offsetLeft;
+      // @ts-ignore
+      const width = e.target.offsetWidth;
+      // console.log((e.pageX - offset) / width) * duration);
+      seekTo(Math.floor((Math.floor(e.pageX - offset) / width) * duration));
+    }
+  };
+
+  useEffect(() => {
+    if (progress.current) {
+      progress.current.addEventListener("click", hello);
+    }
+
+    return () => {
+      if (progress.current) {
+        progress.current.removeEventListener("click", hello);
+      }
+    };
+  }, [progress]);
+
   return (
-    <StyledDiv>
+    <StyledDiv ref={progress}>
       <StyledBackground />
       <StyledSeeker style={{ transform: `translateX(${percentage}%)` }} />
     </StyledDiv>

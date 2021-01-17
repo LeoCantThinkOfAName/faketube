@@ -1,8 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+
+import { NavContextProvider } from "../../context/NavContext";
+import { SearchContextProvider } from "../../context/SearchContext";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 import { Nav } from "../Nav";
+import { SearchInput } from "../SearchInput";
 
 interface LayoutProps {}
 
@@ -17,14 +22,21 @@ const StyledDiv = styled.div`
 `;
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const location = useLocation();
+
   return (
-    <>
+    <NavContextProvider>
       <Header />
       <main>
         <Nav />
-        <StyledDiv>{children}</StyledDiv>
+        <StyledDiv>
+          <SearchContextProvider>
+            {!location.pathname.match("watch") && <SearchInput />}
+            {children}
+          </SearchContextProvider>
+        </StyledDiv>
       </main>
       <Footer />
-    </>
+    </NavContextProvider>
   );
 };

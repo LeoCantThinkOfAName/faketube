@@ -69,6 +69,7 @@ export const WatchPage: React.FC<WatchPageProps> = ({}) => {
           </VideoWrapper>
           {player.current && (
             <Controls
+              data={data?.items[0]}
               player={player.current}
               playing={playing}
               setPlaying={setPlaying}
@@ -77,6 +78,7 @@ export const WatchPage: React.FC<WatchPageProps> = ({}) => {
               muted={muted}
               setMuted={setMuted}
               progress={progress}
+              getDuration={player.current.getDuration}
             />
           )}
           <h2>{data?.items[0].snippet.title}</h2>

@@ -1,6 +1,9 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useContext } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+
+import { SearchContext } from "../../context/SearchContext";
 
 interface SearchInputProps {
   placeholder?: string;
@@ -31,12 +34,27 @@ const StyledDiv = styled.div`
 export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder = "Search",
 }) => {
+  const { setTerm } = useContext(SearchContext);
+  const history = useHistory();
+
   return (
-    <StyledDiv>
-      <input placeholder={placeholder} />
-      <button>
-        <FaSearch />
-      </button>
-    </StyledDiv>
+    <form
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        history.push("/search/1");
+      }}
+    >
+      <StyledDiv>
+        <input
+          placeholder={placeholder}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTerm(e.target.value)
+          }
+        />
+        <button>
+          <FaSearch />
+        </button>
+      </StyledDiv>
+    </form>
   );
 };

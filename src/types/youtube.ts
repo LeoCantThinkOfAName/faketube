@@ -23,8 +23,33 @@ export interface YoutubeVideo {
   contentDetails: YoutubeVideoDetail;
 }
 
+export interface YoutubeSearchedVideo {
+  id: {
+    videoId: string;
+  },
+  snippet: YoutubeSnippet
+}
+
 export interface YoutubeResponse {
   items: YoutubeVideo[];
+  nextPageToken: string;
+  pageInfo: {
+    resultsPerPage: number;
+    totalResults: number;
+  }
+}
+
+export interface YoutubeGeneral {
+  items: any[];
+  nextPageToken: string;
+  pageInfo: {
+    resultsPerPage: number;
+    totalResults: number;
+  }
+}
+
+export interface YoutubeSearchResponse {
+  items: YoutubeSearchedVideo[];
   nextPageToken: string;
   pageInfo: {
     resultsPerPage: number;
