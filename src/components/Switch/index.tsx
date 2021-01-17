@@ -26,7 +26,7 @@ export const Switch: React.FC<SwitchProps> = () => {
 
   useEffect(() => {
     setTheme(themes[current]);
-  }, [current]);
+  }, [current, setTheme, themes]);
 
   return (
     <div>

@@ -43,17 +43,20 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   const progress = useRef<HTMLDivElement | null>(null);
 
-  const seek = useCallback((e: MouseEvent) => {
-    e.stopPropagation();
-    if (e.target) {
-      // @ts-ignore
-      const offset = e.target.offsetParent.offsetLeft;
-      // @ts-ignore
-      const width = e.target.offsetWidth;
-      // console.log((e.pageX - offset) / width) * duration);
-      seekTo(Math.floor((Math.floor(e.pageX - offset) / width) * duration));
-    }
-  }, []);
+  const seek = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation();
+      if (e.target) {
+        // @ts-ignore
+        const offset = e.target.offsetParent.offsetLeft;
+        // @ts-ignore
+        const width = e.target.offsetWidth;
+        // console.log((e.pageX - offset) / width) * duration);
+        seekTo(Math.floor((Math.floor(e.pageX - offset) / width) * duration));
+      }
+    },
+    [seekTo, duration],
+  );
 
   useEffect(() => {
     if (progress.current) {
@@ -64,8 +67,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       if (progress.current) {
         progress.current.removeEventListener("click", seek);
       }
+      progress.current = null;
     };
-  }, [progress.current, seek]);
+  }, [progress, seek]);
 
   return (
     <StyledDiv ref={progress}>

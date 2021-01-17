@@ -85,7 +85,7 @@ export const Controls: React.FC<ControlsProps> = ({
     if (!playing) {
       setPlaying(true);
     }
-  }, []);
+  }, [setPlaying, playing]);
 
   useEffect(() => {
     if (favs) {
