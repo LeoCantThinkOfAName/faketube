@@ -61,7 +61,7 @@ const StyledLi = styled.li`
 export const VideoListItem: React.FC<VideoListItemProps> = ({ video }) => {
   return (
     <StyledLi>
-      <Link to="/">
+      <Link to={`/watch/${video.id}`}>
         <figure>
           <div>
             <img

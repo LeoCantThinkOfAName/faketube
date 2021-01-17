@@ -1,31 +1,16 @@
 import React from "react";
-import { FaSpinner } from "react-icons/fa";
-import styled, { keyframes } from "styled-components";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { RouteParams } from "../../Routes";
 
 import { YoutubeVideo } from "../../types/youtube";
+import { Spinner } from "../Spinner";
 import { VideoListItem } from "../VideoListItem";
 
 interface VideoListProps {
   loading?: boolean;
   list?: YoutubeVideo[];
 }
-
-const rotate = keyframes`
-  0% {
-    transform: rotate(0deg);
-    opacity: 0;
-  }
-
-  50% {
-    transform: rotate(180deg);
-    opacity: 1;
-  }
-
-  100% {
-    transform: rotate(360deg);
-    opacity: 0;
-  }
-`;
 
 const StyledDiv = styled.div`
   flex: 1;
@@ -45,27 +30,31 @@ const StyledUl = styled.ul`
   width: 100%;
 `;
 
-const StyledSpinner = styled(FaSpinner)`
-  animation: ${rotate} 1s linear infinite;
-  font-size: 3rem;
-  color: ${({ theme }) => theme.main};
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 export const VideoList: React.FC<VideoListProps> = ({
   loading = true,
   list = [],
 }) => {
+  const { page } = useParams<RouteParams>();
+
   return (
     <StyledDiv>
-      {loading && <StyledSpinner />}
+      {loading && <Spinner />}
       <StyledUl>
-        {list.map((video) => (
-          <VideoListItem key={video.id} video={video} />
-        ))}
+        {(page === undefined || parseInt(page) === 1) &&
+          list.map((video, index) => {
+            if (index < 12) {
+              return <VideoListItem key={video.id} video={video} />;
+            }
+          })}
+        {parseInt(page) > 1 &&
+          list.map((video, index) => {
+            if (
+              index >= (parseInt(page) - 1) * 12 &&
+              index < parseInt(page) * 12
+            ) {
+              return <VideoListItem key={video.id} video={video} />;
+            }
+          })}
       </StyledUl>
     </StyledDiv>
   );

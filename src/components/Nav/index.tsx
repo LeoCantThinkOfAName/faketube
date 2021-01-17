@@ -10,7 +10,6 @@ const StyledDrawer = styled.div`
   background-color: ${({ theme }) => theme.sub};
   position: sticky;
   top: 3.85rem;
-  height: calc(100vh - 4rem);
 
   ul {
     padding: 0.5rem 0;

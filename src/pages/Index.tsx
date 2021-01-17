@@ -5,18 +5,32 @@ import { Pagination } from "../components/Pagination";
 import { SearchInput } from "../components/SearchInput";
 import { VideoList } from "../components/VideoList";
 import { YoutubeResponse } from "../types/youtube";
+import { getSessionStorage } from "../utils/getSessionStorage";
 import { getVideos } from "../utils/getVideos";
 
 interface IndexPageProps {}
 
 export const IndexPage: React.FC<IndexPageProps> = ({}) => {
-  const { isLoading, data } = useQuery<YoutubeResponse>("popular", getVideos);
+  const sessionData = getSessionStorage<YoutubeResponse>(
+    "/videos?chart=mostPopular",
+  );
+
+  const { isLoading, data } = useQuery<YoutubeResponse>(
+    "/videos?chart=mostPopular",
+    async () =>
+      getVideos({
+        type: "/videos?chart=mostPopular",
+        resultsPerPage: 50,
+        term: null,
+      }),
+    { enabled: !sessionData },
+  );
 
   return (
     <>
       <SearchInput />
-      <VideoList list={data?.items} loading={isLoading} />
-      {!isLoading && data && <Pagination />}
+      <VideoList list={sessionData?.items} loading={isLoading} />
+      {!isLoading && sessionData && <Pagination />}
     </>
   );
 };

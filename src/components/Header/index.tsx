@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { Switch } from "../Switch";
 
@@ -21,12 +22,18 @@ const StyledHeader = styled.header`
     font-size: ${({ theme }) => theme.typography.xl};
     margin: 0;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <StyledHeader>
-      <h1>FakeTube</h1>
+      <Link to="/">
+        <h1>FakeTube</h1>
+      </Link>
       <Switch />
     </StyledHeader>
   );
