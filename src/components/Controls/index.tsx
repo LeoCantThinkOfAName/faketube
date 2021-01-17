@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
   FiChevronsLeft,
@@ -81,6 +81,12 @@ export const Controls: React.FC<ControlsProps> = ({
   const storedFavs = useMemo(() => getLocalStorage("favs"), []);
   const [favs, setFavs] = useState(storedFavs);
 
+  const autoplay = useCallback(() => {
+    if (!playing) {
+      setPlaying(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (favs) {
       setLocalStorage("favs", favs);
@@ -96,13 +102,7 @@ export const Controls: React.FC<ControlsProps> = ({
     return () => {
       window.removeEventListener("focus", autoplay);
     };
-  }, [player]);
-
-  const autoplay = () => {
-    if (!playing) {
-      setPlaying(true);
-    }
-  };
+  }, [player, autoplay]);
 
   const seeking = (direction: boolean) => {
     const currentTime = getCurrentTime();

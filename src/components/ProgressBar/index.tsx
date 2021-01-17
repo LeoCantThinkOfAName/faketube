@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface ProgressBarProps {
@@ -43,7 +43,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   const progress = useRef<HTMLDivElement | null>(null);
 
-  const seek = (e: MouseEvent) => {
+  const seek = useCallback((e: MouseEvent) => {
     e.stopPropagation();
     if (e.target) {
       // @ts-ignore
@@ -53,7 +53,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       // console.log((e.pageX - offset) / width) * duration);
       seekTo(Math.floor((Math.floor(e.pageX - offset) / width) * duration));
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (progress.current) {
@@ -65,7 +65,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         progress.current.removeEventListener("click", seek);
       }
     };
-  }, [progress, seek]);
+  }, [progress.current, seek]);
 
   return (
     <StyledDiv ref={progress}>

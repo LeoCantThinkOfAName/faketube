@@ -31,6 +31,6 @@ const StyledSpinner = styled(FaSpinner)`
   transform: translate(-50%, -50%);
 `;
 
-export const Spinner: React.FC<SpinnerProps> = ({}) => {
+export const Spinner: React.FC<SpinnerProps> = () => {
   return <StyledSpinner />;
 };

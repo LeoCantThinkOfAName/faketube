@@ -14,7 +14,7 @@ const StyledLabel = styled.label`
   font-size: ${({ theme }) => theme.typography.xl};
 `;
 
-export const Switch: React.FC<SwitchProps> = ({}) => {
+export const Switch: React.FC<SwitchProps> = () => {
   const themes = useMemo(() => {
     return {
       light: lightTheme,

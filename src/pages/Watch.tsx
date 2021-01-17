@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
