@@ -5,7 +5,7 @@ import { getLocalStorage } from "../utils/getLocalStorage";
 
 interface FavoritePageProps {}
 
-export const FavoritePage: React.FC<FavoritePageProps> = ({}) => {
+export const FavoritePage: React.FC<FavoritePageProps> = () => {
   const favs = getLocalStorage("favs");
 
   return (

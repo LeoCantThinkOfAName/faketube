@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import { Pagination } from "../components/Pagination";
-import { SearchInput } from "../components/SearchInput";
 import { VideoList } from "../components/VideoList";
 import { YoutubeResponse } from "../types/youtube";
 import { getSessionStorage } from "../utils/getSessionStorage";
@@ -10,12 +9,12 @@ import { getVideos } from "../utils/getVideos";
 
 interface IndexPageProps {}
 
-export const IndexPage: React.FC<IndexPageProps> = ({}) => {
+export const IndexPage: React.FC<IndexPageProps> = () => {
   const sessionData = getSessionStorage<YoutubeResponse>(
     "/videos?chart=mostPopular",
   );
 
-  const { isLoading, data } = useQuery<YoutubeResponse>(
+  const { isLoading } = useQuery<YoutubeResponse>(
     "/videos?chart=mostPopular",
     async () =>
       getVideos({

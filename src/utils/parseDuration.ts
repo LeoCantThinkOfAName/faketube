@@ -1,5 +1,4 @@
 export const parseDuration = (duration: string): string => {
-  let result = "";
   const cleared = duration.slice(2).slice(0, -1);
   const durationArr = cleared.split(/[A-Z]/);
   

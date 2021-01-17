@@ -10,6 +10,6 @@ const StyledFooter = styled.footer`
   text-align: center;
 `;
 
-export const Footer: React.FC<FooterProps> = ({}) => {
+export const Footer: React.FC<FooterProps> = () => {
   return <StyledFooter>This is a very irrelevent footer</StyledFooter>;
 };

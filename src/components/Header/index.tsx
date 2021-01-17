@@ -51,7 +51,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Header: React.FC<HeaderProps> = ({}) => {
+export const Header: React.FC<HeaderProps> = () => {
   const { show, setShow } = useContext(NavContext);
 
   return (

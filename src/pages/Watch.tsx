@@ -34,7 +34,7 @@ const VideoWrapper = styled.div`
   position: relative;
 `;
 
-export const WatchPage: React.FC<WatchPageProps> = ({}) => {
+export const WatchPage: React.FC<WatchPageProps> = () => {
   const player = useRef<ReactPlayer>(null);
   const [playing, setPlaying] = useState(false);
   const [advert, setAdvert] = useState(false);

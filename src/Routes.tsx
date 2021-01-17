@@ -12,7 +12,7 @@ export interface RouteParams {
   page: string;
 }
 
-export const Routes: React.FC = ({}): JSX.Element => {
+export const Routes: React.FC = (): JSX.Element => {
   return (
     <Router>
       <Layout>

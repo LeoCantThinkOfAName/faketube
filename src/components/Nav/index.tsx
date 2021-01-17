@@ -52,7 +52,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export const Nav: React.FC<NavProps> = ({}) => {
+export const Nav: React.FC<NavProps> = () => {
   const { show } = useContext(NavContext);
   const location = useLocation();
 

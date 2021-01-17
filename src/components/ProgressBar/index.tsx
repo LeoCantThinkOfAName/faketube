@@ -43,7 +43,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   const progress = useRef<HTMLDivElement | null>(null);
 
-  const hello = (e: MouseEvent) => {
+  const seek = (e: MouseEvent) => {
     e.stopPropagation();
     if (e.target) {
       // @ts-ignore
@@ -57,15 +57,15 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   useEffect(() => {
     if (progress.current) {
-      progress.current.addEventListener("click", hello);
+      progress.current.addEventListener("click", seek);
     }
 
     return () => {
       if (progress.current) {
-        progress.current.removeEventListener("click", hello);
+        progress.current.removeEventListener("click", seek);
       }
     };
-  }, [progress]);
+  }, [progress, seek]);
 
   return (
     <StyledDiv ref={progress}>

@@ -1,4 +1,4 @@
-import { YoutubeResponse } from "../types/youtube";
+import { YoutubeResponse } from '../types/youtube';
 
 export const getVideo = (id: string): Promise<YoutubeResponse> => {
   const base = "https://www.googleapis.com/youtube/v3/videos"

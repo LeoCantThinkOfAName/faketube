@@ -1,5 +1,5 @@
-import { YoutubeGeneral, YoutubeResponse } from "../types/youtube"
-import { setSessionStorage } from "./setSessionStorage";
+import { YoutubeGeneral } from '../types/youtube';
+import { setSessionStorage } from './setSessionStorage';
 
 interface QueryParams {
   type?: "/videos?chart=mostPopular" | "/search?";

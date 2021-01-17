@@ -48,6 +48,7 @@ export const VideoList: React.FC<VideoListProps> = ({
               if (index < 12) {
                 return <VideoListItem key={video.id} video={video} />;
               }
+              return;
             })}
           {parseInt(page) > 1 &&
             list.map((video, index) => {
@@ -57,6 +58,7 @@ export const VideoList: React.FC<VideoListProps> = ({
               ) {
                 return <VideoListItem key={video.id} video={video} />;
               }
+              return;
             })}
         </StyledUl>
       </StyledDiv>
@@ -73,6 +75,7 @@ export const VideoList: React.FC<VideoListProps> = ({
                   <VideoListItem key={video.id.videoId} searchedVideo={video} />
                 );
               }
+              return;
             })}
           {parseInt(page) > 1 &&
             search.map((video, index) => {
@@ -84,6 +87,7 @@ export const VideoList: React.FC<VideoListProps> = ({
                   <VideoListItem key={video.id.videoId} searchedVideo={video} />
                 );
               }
+              return;
             })}
         </StyledUl>
       </StyledDiv>
